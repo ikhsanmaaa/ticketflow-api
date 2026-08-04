@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { UserModule } from './user/user.module';
-import { UserModule } from './user/user.module';
-import { JiraModule } from './jira/jira.module';
-import { JiraModule } from './jira/jira.module';
-import { UserModule } from './user/user.module';
-import { UserModule } from './user/user.module';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { JiraModule } from './core/jira/jira.module';
+import { ConfigModule } from '@nestjs/config';
+import { PortalTokenModule } from './modules/portal-token/portal-token.module';
 
 @Module({
-  imports: [DashboardModule, UserModule, JiraModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    DashboardModule,
+    JiraModule,
+    PortalTokenModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
