@@ -36,15 +36,31 @@ export class JiraService {
   }
 
   async getAllIssues() {
-    const params = `search/jql?jql=project=ITSM&&fields=status,summary,assignee&&maxResults=3`;
-    const response = await this.response(params);
-    return response;
+    try {
+      const params = `search/jql?jql=project=ITSM&&fields=status,summary,assignee&&maxResults=3`;
+      const response = await this.response(params);
+      return response;
+    } catch (error) {
+      console.error(
+        'Error fetching Jira tickets:',
+        error?.response?.data || error.message,
+      );
+      throw error;
+    }
   }
 
   async getIssues(id: string) {
-    const params = `issue/${id}?fields=key,issuetype,summary,status,updated`;
-    const response = await this.response(params);
-    return TicketMapper.toResponseSingle(response);
+    try {
+      const params = `issue/${id}?fields=key,issuetype,summary,status,updated`;
+      const response = await this.response(params);
+      return TicketMapper.toResponseSingle(response);
+    } catch (error) {
+      console.error(
+        'Error fetching Jira tickets:',
+        error?.response?.data || error.message,
+      );
+      throw error;
+    }
   }
 
   async getTopFiveIssue() {

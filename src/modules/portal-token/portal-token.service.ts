@@ -15,7 +15,7 @@ export class PortalTokenService {
     const cipher = crypto.createCipheriv(this.algorithm, this.key, iv);
     const payload = JSON.stringify({
       t: ticketNumber,
-      exp: Date.now() + 15 * 60 * 1000,
+      exp: Date.now() + 60 * 60 * 1000,
     });
     let encrypted = cipher.update(payload, 'utf8', 'base64url');
     encrypted += cipher.final('base64url');
