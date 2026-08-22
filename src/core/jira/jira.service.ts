@@ -42,7 +42,7 @@ export class JiraService {
   }
 
   async getIssues(id: string) {
-    const params = `issue/${id}?fields=key,issuetype,summary,status,updated`;
+    const params = `issue/${id}?fields=key,issuetype,summary,status,updated,First Assigned Time`;
     const response = await this.response(params);
     return TicketMapper.toResponseSingle(response);
   }
