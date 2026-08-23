@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { JiraService } from 'src/core/jira/jira.service';
+import { JsmService } from 'src/core/jsm/jsm.service';
 
 @Injectable()
 export class DashboardService {
-  constructor(private readonly jiraService: JiraService) {}
+  constructor(private readonly jsmService: JsmService) {}
 
   async getDashboard() {
-    return await this.jiraService.getTopFiveIssue();
+    return await this.jsmService.getTopFiveIssue();
   }
 }

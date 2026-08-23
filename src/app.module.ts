@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { JiraModule } from './core/jira/jira.module';
 import { ConfigModule } from '@nestjs/config';
 import { PortalTokenModule } from './modules/portal-token/portal-token.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
-import { PrismaModule } from './prisma/prisma.module';
+import { PrismaModule } from './core/database/prisma/prisma.module';
+import { PrismaService } from './core/database/prisma/prisma.service';
+import { TicketsModule } from './modules/tickets/tickets.module';
+import { CryptoService } from './core/crypto/crypto.service';
+import { JsmModule } from './core/jsm/jsm.module';
+import { MailService } from './core/mail/mail.service';
 
 @Module({
   imports: [
@@ -13,13 +17,14 @@ import { PrismaModule } from './prisma/prisma.module';
       isGlobal: true,
     }),
     DashboardModule,
-    JiraModule,
+    JsmModule,
     PortalTokenModule,
     AuthModule,
     UsersModule,
     PrismaModule,
+    TicketsModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [PrismaService, CryptoService, MailService],
 })
 export class AppModule {}

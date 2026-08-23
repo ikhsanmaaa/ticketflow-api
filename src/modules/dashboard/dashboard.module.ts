@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { DashboardController } from './dashboard.controller';
 import { DashboardService } from './dashboard.service';
-import { JiraModule } from 'src/core/jira/jira.module';
+import { JsmModule } from 'src/core/jsm/jsm.module';
 
 @Module({
-  imports: [JiraModule],
+  imports: [JsmModule],
   controllers: [DashboardController],
   providers: [DashboardService],
 })

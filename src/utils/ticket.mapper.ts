@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/id';
-import { JiraIssue } from 'src/core/jira/interfaces/jira-issue.interface';
-import { TicketResponseDto } from 'src/core/jira/dto/ticket-response';
+import { TicketResponseDto } from 'src/core/jsm/dto/ticket-response';
+import { JsmIssue } from 'src/core/jsm/interfaces/jira-issue.interface';
 
 dayjs.extend(relativeTime);
 dayjs.locale('id');
 export class TicketMapper {
-  static toResponseSingle(issue: JiraIssue): TicketResponseDto {
+  static toResponseSingle(issue: JsmIssue): TicketResponseDto {
     return {
       key: issue.key,
 
@@ -20,7 +20,7 @@ export class TicketMapper {
       lastUpdated: dayjs(issue.fields.updated).fromNow(),
     };
   }
-  static toResponseList(issues: JiraIssue[]): TicketResponseDto[] {
+  static toResponseList(issues: JsmIssue[]): TicketResponseDto[] {
     return issues.map(this.toResponseSingle);
   }
 }

@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { TicketMapper } from 'src/utils/ticket.mapper';
 
 @Injectable()
-export class JiraService {
+export class JsmService {
   private readonly baseUrl: string;
   private readonly username: string;
   private readonly apiKey: string;
@@ -15,9 +15,9 @@ export class JiraService {
     private readonly http: HttpService,
     private readonly config: ConfigService,
   ) {
-    this.baseUrl = this.config.getOrThrow<string>('JIRA_BASE_URL');
-    this.username = this.config.getOrThrow<string>('JIRA_USERNAME');
-    this.apiKey = this.config.getOrThrow<string>('JIRA_API_KEY');
+    this.baseUrl = this.config.getOrThrow<string>('JSM_BASE_URL');
+    this.username = this.config.getOrThrow<string>('JSM_USERNAME');
+    this.apiKey = this.config.getOrThrow<string>('JSM_API_KEY');
     this.auth = Buffer.from(`${this.username}:${this.apiKey}`).toString(
       'base64',
     );
@@ -42,7 +42,7 @@ export class JiraService {
       return response;
     } catch (error) {
       console.error(
-        'Error fetching Jira tickets:',
+        'Error fetching Jsm tickets:',
         error?.response?.data || error.message,
       );
       throw error;
@@ -56,7 +56,7 @@ export class JiraService {
       return TicketMapper.toResponseSingle(response);
     } catch (error) {
       console.error(
-        'Error fetching Jira tickets:',
+        'Error fetching Jsm tickets:',
         error?.response?.data || error.message,
       );
       throw error;
@@ -70,7 +70,7 @@ export class JiraService {
       return TicketMapper.toResponseList(response.issues);
     } catch (error) {
       console.error(
-        'Error fetching Jira tickets:',
+        'Error fetching Jsm tickets:',
         error?.response?.data || error.message,
       );
       throw error;

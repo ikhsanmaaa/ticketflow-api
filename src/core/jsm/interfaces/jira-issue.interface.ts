@@ -1,4 +1,4 @@
-export interface JiraIssue {
+export interface JsmIssue {
   key: string;
 
   fields: {
