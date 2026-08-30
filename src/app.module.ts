@@ -10,6 +10,7 @@ import { TicketsModule } from './modules/tickets/tickets.module';
 import { CryptoService } from './core/crypto/crypto.service';
 import { JsmModule } from './core/jsm/jsm.module';
 import { MailService } from './core/mail/mail.service';
+import { SchedulerModule } from './modules/scheduler/scheduler.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { MailService } from './core/mail/mail.service';
     UsersModule,
     PrismaModule,
     TicketsModule,
+    SchedulerModule,
   ],
   controllers: [],
   providers: [PrismaService, CryptoService, MailService],

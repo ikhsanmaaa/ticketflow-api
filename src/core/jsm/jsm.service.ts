@@ -76,4 +76,53 @@ export class JsmService {
       throw error;
     }
   }
+
+  async searchIssuesByAssignee(assignee: string, maxResults: number) {
+    const jql = `project = ITSM AND assignee = "${assignee}"`;
+
+    const params = new URLSearchParams({
+      jql,
+      fields: 'key,assignee',
+      maxResults: String(maxResults),
+    });
+
+    return this.response(`search/jql?${params.toString()}`);
+  }
+
+  async updateIssueField(issueKey: string, fieldId: string, value: unknown) {
+    const response = firstValueFrom(
+      this.http.put(
+        `${this.baseUrl}issue/${issueKey}`,
+        {
+          fields: {
+            [fieldId]: value,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Basic ${this.auth}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        },
+      ),
+    );
+
+    try {
+      const result = await response;
+      if (result.status === 204) {
+        return {
+          success: true,
+          status: result.status,
+        };
+      }
+      return result.data;
+    } catch (error) {
+      console.error(
+        'Error put to jira field:',
+        error?.response?.data || error.message,
+      );
+      throw error;
+    }
+  }
 }
